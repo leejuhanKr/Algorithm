@@ -8,12 +8,10 @@ def solution(N, number):
             for a in answer[j]:
                 for b in answer[i-j]:
                     for opt in (int.__add__, int.__sub__, int.__mul__, int.__floordiv__):                        
-                        if b==0 and opt ==int.__floordiv__:
-                            continue
                         if (res := opt(a,b)) == number:
                             return i
-                        answer[i].add(opt(a,b))
-        i+=1
+                        if res != 0:
+                            answer[i].add(res)
     return -1
 
 print(solution(2,11))
