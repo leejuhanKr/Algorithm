@@ -1,0 +1,18 @@
+def solution(n):
+    answer = [[]]
+    init, base, target = 1, 2, 3
+    def hanoi(n,init,base,target):
+        if n == 1:
+            return [[init,target]]
+        else:
+            return [
+                *hanoi(n-1, init, target, base), 
+                [init, target], 
+                *hanoi(n-1, base, init, target),
+            ]
+    return hanoi(n,init, base, target)
+
+# solution(n,0,2)
+# => solution(n-1,0,1) + [0->2] + solution(n-1,1,2)
+
+# init base target
