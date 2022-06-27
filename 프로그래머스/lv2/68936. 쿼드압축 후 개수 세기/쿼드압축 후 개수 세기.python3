@@ -1,0 +1,29 @@
+def get_numbers(x,y,size,arr):
+    for r in range(x,x+size):
+        yield from arr[r][y:y+size]
+
+def solution(arr):
+    arr_size = len(arr)
+    size = len(arr)
+    calculated = [[0]*arr_size for _ in range(arr_size)]
+    
+    ans = [0, 0]
+
+    while size > 0:
+        for x in range(0,arr_size,size):
+            for y in range(0,arr_size,size):
+                if calculated[x][y]:
+                    continue
+                num_gen = get_numbers(x,y,size,arr)
+                num = next(num_gen)
+                for tmp in num_gen:
+                    if num != tmp:
+                        break
+                else:
+                    ans[num] += 1
+                    for r in range(x,x+size):
+                        for c in range(y,y+size):
+                            calculated[r][c] = 1
+
+        size//=2
+    return ans
