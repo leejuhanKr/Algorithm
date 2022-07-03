@@ -1,0 +1,9 @@
+def solution(n):
+    a,b = 1,2
+    if n==1:
+        return 1
+    for i in range(n-2):
+        a,b = b%1234567, (a+b)%1234567
+    return b
+    
+    
