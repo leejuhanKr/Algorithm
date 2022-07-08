@@ -1,14 +1,11 @@
 def solution(word):
-    _dict = {'A':1, 'E':2, 'I':3, 'O':4, 'U':5}
-    word = [_dict[w] for w in word]
-    n=5
-    a= [5**i for i in range(5)]
-    for i in range(1,5):
-        a[i]+=a[i-1]
-
-    ans = 0
-    for i in word:
-        ans += a[n-1]*(i-1)+1
-        n-=1
-        
+    convert={'A':0,'E':1,'I':2,'O':3,'U':4}
+    weights = [781, 156, 31, 6, 1]
+    ans = len(word)
+    for c,w in zip(word,weights):
+        ans += convert[c]*w
     return ans
+
+# weights=[1,1,1,1,1]
+# for i in range(3,-1,-1):
+#     weights[i] += 5*weights[i+1]
