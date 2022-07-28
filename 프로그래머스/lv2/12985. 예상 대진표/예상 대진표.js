@@ -1,4 +1,3 @@
 function solution(n,a,b) {
-  for (i=1; a-1>>i ^ b-1>>i; i++) {}
-  return i
+  return (a-1^b-1).toString(2).length
 }
