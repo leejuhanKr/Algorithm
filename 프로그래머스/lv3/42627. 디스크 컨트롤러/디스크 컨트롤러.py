@@ -21,8 +21,8 @@ def solution(jobs):
         if will_pending <= time and q:
             cost, request_time = hq.heappop(q)
             res.append(time-request_time+cost)
-            will_pending = time + cost
-            time = will_pending
+        # 시간 재설정
+            time += cost
         else:
             time += 1
         
