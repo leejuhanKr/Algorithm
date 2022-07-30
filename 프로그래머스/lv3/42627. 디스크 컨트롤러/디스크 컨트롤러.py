@@ -1,37 +1,42 @@
-from queue import PriorityQueue
+import heapq as hq
 
 def solution(jobs):
-    answer = 0
-    jobs = sorted(jobs, reverse = True)
-    num_of_jobs = len(jobs)
-    task = PriorityQueue()
+    res = []
     time = 0
-    total_time_lst=[]
+
+    jobs.sort()
+    job_idx = 0
+    job_length = len(jobs)
     
-    while len(total_time_lst) < num_of_jobs:
-        # 해당 시간까지 들어온 요청 확인후 큐에 삽입
-        print(f'현재 시간:{time}ms')
-        while jobs and jobs[-1][0] <= time:
-            job = jobs.pop()
-            print(f'요청:{job}')
-            task.put((job[1],job[0])) # (작업 시간, 요청 시간) -> 작업순위 우선시간
-        
-        if task.qsize():
-            # 가장 빨리 처리 가능한 task 처리
-            process =  task.get()
-
-            print(f'처리:{process}')
-            # 총 소요시간 계산
-            wait_time = time - process[1]
-            running_time = process[0]
-            total_time = wait_time + running_time
-            # 소요시간 리스트에 추가
-            total_time_lst.append(total_time)
-
-            time+=running_time
+    will_pending = 0
+    q = [] #heapq
+    
+    while True:
+        # q에 job 추가
+        while job_idx<job_length and jobs[job_idx][0] <= time:
+            request_time, cost = jobs[job_idx]
+            hq.heappush(q, [cost, request_time])
+            job_idx += 1
+        # 처리중인 일이 없다면 작업 시작
+        if will_pending <= time and q:
+            cost, request_time = hq.heappop(q)
+            res.append(time-request_time+cost)
+            will_pending = time + cost
+            time = will_pending
         else:
-            time+=1
+            time += 1
+        
+        if job_idx==job_length and not q:
+            return sum(res)//len(res)
+            
+    
 
-    answer = sum(total_time_lst)//len(total_time_lst)
-
-    return answer
+        
+        
+        
+        
+        
+    
+    
+    
+    
