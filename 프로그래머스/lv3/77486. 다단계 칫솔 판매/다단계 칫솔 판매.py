@@ -1,7 +1,3 @@
-import sys
-limit_number = 15000
-sys.setrecursionlimit(limit_number)
-
 def solution(enroll, referral, seller, amount):
     names = {'-':Seller()}
     for e,r in zip(enroll, referral):
