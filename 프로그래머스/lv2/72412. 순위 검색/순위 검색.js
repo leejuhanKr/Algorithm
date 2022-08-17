@@ -1,86 +1,74 @@
-function solution(infos, querys) {
-  const db = {};
-  infos
-  .map(info => preprocessData(info))
-  .forEach(data => appendDataToDb(db, data))
-  
-  SortDb(db)
+function solution(info, query) {
+  db = {};
+  info
+  .map(processData(/ /))
+  .forEach((data) => append(db, data));
 
-  const res = []
-  v = querys
-  .map(query => preprocessQuery(query))
-  .forEach(([params,score]) => {
-    let pass = 0
-    let re = new RegExp(`^${params.map(param=>param==='-'?'[a-z]*':param).join(',')}$`)
-    getScoresArrWithQuery(db, re)
-    .forEach(scores => {
-      pass += checkScore(scores, score)
-    })
-    res.push(pass)
-  })
+  Object.values(db)
+  .forEach((scores) => scores.sort((a, b) => a - b));
 
-  return res
+  return query
+  .map(processData(/ and | /))
+  .map(({ k: param, v: minScore }) =>
+    Object.keys(db)
+      .filter(checkKey(param))
+      .map((k) => db[k])
+      .map(getPassedNumber(minScore))
+      .reduce((a, b) => a + b, 0)
+  );
 }
-
-
-function preprocessData(info) {
-  const data = info.split(" ");
-  const key = data.slice(0, data.length - 1).join(",");
-  const score = Number(data[data.length - 1]);
-  return [key, score];
+const mask = {
+  //lang
+  cpp: "001", python: "010", java: "100",
+  // job group
+  backend: "001", frontend: "010",
+  // carrer
+  junior: "001", senior: "010",
+  //food
+  chicken: "001", pizza: "010",
+  // escape
+  "-": "111",
+};
+const convert = (arr) => {
+  return arr.map((v) => mask[v]).join("");
+};
+function processData(re) {
+  return (dataString) => {
+    const data = dataString.split(re);
+    return {
+      k: parseInt(convert(data.slice(0, data.length - 1)), 2).toString(),
+      v: Number(data[data.length - 1]),
+    };
+  };
 }
-
-function appendDataToDb(db, data) {
-  const [key, score] = data;
+function append(db, data) {
+  const { k: key, v: score } = data;
   if (db.hasOwnProperty(key)) {
     db[key].push(score);
   } else {
     db[key] = [score];
   }
 }
-
-function SortDb(db) {
-  for (let values of Object.values(db)) {
-    values.sort((a,b)=>(a-b))
-  }
+function checkKey(param) {
+  param = Number(param);
+  return (key) => {
+    key = Number(key);
+    return (key & param) === key;
+  };
 }
 
-function preprocessQuery(query) {
-  const data = query.split(/ and | /)
-  const params = data.slice(0, data.length - 1);
-  const score = Number(data[data.length - 1]);
-  return [params, score];
-}
-
-function getScoresArrWithQuery(db, re) {
-  const res = []
-  for (const [key, scores] of Object.entries(db)) {
-    if (isCorrespond(key, re)) {
-      res.push(scores)
+function getPassedNumber(minScore) {
+  // return (scores) => scores.filter((v) => v >= minScore).length;
+  return (scores) => {
+    let [l, r, mid] = [0, scores.length - 1, 0];
+    while (l <= r) {
+      mid = Math.floor((l + r) / 2);
+      if (minScore <= scores[mid]) {
+        r = mid - 1;
+      } else {
+        l = mid + 1;
+      }
     }
-  }
-  return res
-}
-
-function isCorrespond(key, re) {
-  return re.test(key)
-}
-
-function checkScore(scores, score) {
-  return scores.length - bisect_r(scores, cond(score))
-  // return scores.filter(cond(score)).length
-}
-
-function cond (limit) {return (score) => {
-  return score>=limit
-}}
-
-function bisect_r(arr,cb) {
-  let [l,r] = [0, arr.length-1]
-  while (l<=r) {
-    let mid = Math.floor((l+r)/2)
-    if (cb(arr[mid])) r = mid-1
-    else l = mid+1
-  }
-  return l
+    return scores.length - l;
+  };
 }
