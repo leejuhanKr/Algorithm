@@ -1,3 +1,5 @@
+from functools import reduce
+
 def convert(s:str):
     flag = True
     for c in s:
@@ -12,4 +14,4 @@ def convert(s:str):
             flag = not flag
 
 def solution(s):
-    return "".join(convert(s))
+    return reduce(lambda x,y:x+y, convert(s), '')
