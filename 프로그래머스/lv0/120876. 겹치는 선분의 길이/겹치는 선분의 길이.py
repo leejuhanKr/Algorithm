@@ -3,4 +3,4 @@ def solution(lines):
     for line in lines:
         for x in range(*sorted(line)):
             l[x+100] += 1
-    return sum([v >= 2 for v in l])
+    return sum(v >= 2 for v in l)
