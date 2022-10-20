@@ -1,10 +1,8 @@
 import sys
-limit_number = 15000
-sys.setrecursionlimit(limit_number)
+sys.setrecursionlimit(15000)
+
 def solution(a, b, n):
     q,r = divmod(n,a)
-    if q==0:
-        return 0
-    return q*b + solution(a,b,q*b+r) 
+    return q*b + solution(a,b,q*b+r) if q else 0
 
     
