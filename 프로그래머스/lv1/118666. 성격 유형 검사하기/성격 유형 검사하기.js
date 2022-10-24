@@ -17,6 +17,6 @@ function solution(survey, choices) {
       data[type[1] + type[0]] -= score - 4;
     }
   }
-  data;
+
   return types.map((el) => (data[el] <= 0 ? el[0] : el[1])).join("");
 }
