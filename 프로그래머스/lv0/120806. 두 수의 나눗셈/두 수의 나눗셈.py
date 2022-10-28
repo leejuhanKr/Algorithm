@@ -1,0 +1,1 @@
+solution = lambda n1, n2: n1/n2*1000//1
