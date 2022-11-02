@@ -34,7 +34,29 @@ class Counter {
             this.cnt[el] -= 1
         }
     }
-    getVariants() {
-        return Object.keys(this.cnt).length
-    }
 }
+
+// function solution(topping) {
+//     const [part1, part2] = [new Map(), new Map()]
+//     topping.forEach(el => add(part1,el))
+//     res = 0
+    
+//     for (let el of topping) {
+//         add(part2,el)
+//         remove(part1,el)
+//         if (part1.size === part2.size) res += 1
+//     }
+    
+//     return res
+// }
+
+// function add(part, el) {
+//     if (tmp = part.get(el)) part.set(el, tmp+1)
+//     else part.set(el, 1)
+// }
+
+// function remove(part, el) {
+//     tmp = part.get(el)
+//     if (tmp === 1) part.delete(el)
+//     else part.set(el, tmp-1)
+// }
