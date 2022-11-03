@@ -8,11 +8,3 @@ def solution(k, ranges):
         sum(ks[i:len(ks)+j]) if i<=len(ks)+j else -1
         for i,j in ranges
     ] 
-    
-    
-    
-    
-    
-    
-    
-    return []
