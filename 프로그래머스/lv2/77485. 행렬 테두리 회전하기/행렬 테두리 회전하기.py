@@ -3,30 +3,21 @@ def solution(rows, cols, qs):
     return [turn(b,q) for q in qs]
 
 def turn(b, q):
+    pos = [*gen_pos(q)]
+    val = [b[r][c] for r,c in pos[1:]+[pos[0]]]
+    for (r,c),v in zip(pos,val):
+        b[r][c] = v
+    return min(val)
+
+def gen_pos(q):
     r1,c1,r2,c2 = map(lambda x: x-1, q)
-    p_r,p_c = r1, c1+1
-    _min = b[p_r][p_c]
-    c = c1
-    for r in range(r1,r2):
-        _min = min(_min,b[r][c])
-        b[r][c], b[p_r][p_c] = b[p_r][p_c], b[r][c]
-        p_r,p_c = r,c
-    r = r2
-    for c in range(c1,c2):
-        _min = min(_min,b[r][c])
-        b[r][c], b[p_r][p_c] = b[p_r][p_c], b[r][c]
-        p_r,p_c = r,c
-    c = c2
-    for r in range(r2,r1,-1):
-        _min = min(_min,b[r][c])
-        b[r][c], b[p_r][p_c] = b[p_r][p_c], b[r][c]
-        p_r,p_c = r,c
-    r = r1
-    for c in range(c2,c1+1,-1):
-        _min = min(_min,b[r][c])
-        b[r][c], b[p_r][p_c] = b[p_r][p_c], b[r][c]
-        p_r,p_c = r,c
-    return _min
+    yield from ((r,c1) for r in range(r1,r2))
+    yield from ((r2,c) for c in range(c1,c2))        
+    yield from ((r,c2) for r in range(r2,r1,-1))
+    yield from ((r1,c) for c in range(c2,c1,-1))
+        
+
+    
     
     
     
