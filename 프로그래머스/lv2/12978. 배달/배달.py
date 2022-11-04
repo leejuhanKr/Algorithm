@@ -8,8 +8,7 @@ def solution(N, road, K):
     gh = [[inf]*(N+1) for _ in range(N+1)]
     for s,e,w in road:
         w = min(gh[s][e],w)
-        gh[s][e] = w
-        gh[e][s] = w
+        gh[s][e] = gh[e][s] = w
         
     dist = [inf]*(N+1)
     dist[1] = 0
