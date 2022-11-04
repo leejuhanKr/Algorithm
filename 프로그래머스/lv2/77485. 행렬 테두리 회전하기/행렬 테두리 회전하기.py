@@ -1,5 +1,5 @@
 def solution(rows, cols, qs):
-    b = [[*range(1+i*cols,1+i*cols+cols)] for i in range(rows)]
+    b = [[*range(i,i+cols)] for i in range(1,rows*cols,cols)]
     return [turn(b,q) for q in qs]
 
 def turn(b, q):
@@ -15,9 +15,3 @@ def gen_pos(q):
     yield from ((r2,c) for c in range(c1,c2))        
     yield from ((r,c2) for r in range(r2,r1,-1))
     yield from ((r1,c) for c in range(c2,c1,-1))
-        
-
-    
-    
-    
-    
