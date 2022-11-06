@@ -1,10 +1,10 @@
 # [unrated] 야간 전술보행 - 133501 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/133501?language=python3) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/133501?language=javascript) 
 
 ### 성능 요약
 
-메모리: 10.4 MB, 시간: 0.71 ms
+메모리: 34.7 MB, 시간: 5.72 ms
 
 ### 구분
 
