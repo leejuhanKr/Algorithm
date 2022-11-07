@@ -1,14 +1,12 @@
-function solution(ingredient) {
-    let stack = []
+function solution(ingredients) {
+    const stack = []
     const burger = [1,2,3,1]
-    ingredient.forEach(v => {
-        stack.push(v)
-        if (burger.every((v,i) => stack.at(-4+i) === v)) {
+    ingredients.forEach(ingredient => {
+        stack.push(ingredient)
+        if (burger.every((b,i) => stack.at(-4+i) === b)) {
+        // if (burger.every((b,i) => stack.at(stack.length-4+i) === b)) {
             burger.forEach(() => stack.pop())
         }
     })
-    return (ingredient.length-stack.length)/4
+    return (ingredients.length-stack.length)/4
 }
-// function solution(ingredient) {
-    
-// }
