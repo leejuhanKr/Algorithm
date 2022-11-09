@@ -1,41 +1,17 @@
-def in_range(n, l):
-  # IndexError Check
-    return n < l and n >= 0
-
 def solution(s):
-    answer = 0
-    n = len(s)
-    
-    for i in range(n):
-        # 짝수 길이 팰린드롬
-        start, end = i, i + 1
-        l = 0
-        while True:
-            if in_range(start, n) and in_range(end, n):
-                if s[start] == s[end]:
-                    l += 2
-                    start -= 1
-                    end += 1
-                else:
-                    answer = max(answer, l)
-                    break
-            else:
-                answer = max(answer, l)
-                break
-        # 홀수 길이 팰린드롬
-        start, end = i - 1, i + 1
-        l = 1
-        while True:
-            if in_range(start, n) and in_range(end, n):
-                if s[start] == s[end]:
-                    l += 2
-                    start -= 1
-                    end += 1
-                else:
-                    answer = max(answer, l)
-                    break
-            else:
-                answer = max(answer, l)
-                break
-                
-    return answer
+    res = 1
+    max_len = len(s)
+
+    q = [
+        *((i,i+1) for i in range(max_len-1)),
+        *((i,i) for i in range(max_len)),
+    ]
+
+    while q:
+        i,j = q.pop()
+        if i>=0 and j<max_len and s[i] == s[j]:
+            res = max(res, j-i+1)
+            q.append((i-1,j+1))
+        
+    return res
+        
