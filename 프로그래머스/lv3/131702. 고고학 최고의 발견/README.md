@@ -1,10 +1,10 @@
 # [level 3] 고고학 최고의 발견 - 131702 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131702) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131702?language=python3) 
 
 ### 성능 요약
 
-메모리: 10.2 MB, 시간: 5539.71 ms
+메모리: 10.3 MB, 시간: 5585.76 ms
 
 ### 구분
 
