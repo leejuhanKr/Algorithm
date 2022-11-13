@@ -1,4 +1,3 @@
-# from collections import defaultdict
 def solution(m, n, puddles):
     _map = {(1,1):1 , **{(i,j): 0 for i,j in puddles}}
 
@@ -11,3 +10,4 @@ def solution(m, n, puddles):
         return _map[(i,j)]
 
     return helper(m,n)
+
