@@ -1,6 +1,6 @@
 function solution(records) {
-  users = {}
-  logs = []
+  users = {} // key: uid, val:nickname
+  logs = [] // el:[uid, state]
   for (let record of records) {
     const [state, id, username] = record.split(' ')
     switch (state) {
