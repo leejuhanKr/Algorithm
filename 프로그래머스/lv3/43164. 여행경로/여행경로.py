@@ -1,34 +1,23 @@
+from collections import defaultdict
 def solution(tickets):
     tickets.sort()
-    pos = {'ICN': 0}
+    routes = defaultdict(list)
     for s,e in tickets:
-        for p in (s,e):
-            if p not in pos:
-                pos[p] = len(pos)
-
-    sop = {v:k for k,v in pos.items()}
-    gh = [[] for _ in pos]
-    for s,e in tickets:
-        gh[pos[s]].append([pos[e],1])
-    
-    visited = [0, *(-1 for _ in tickets)]
-
-    res = 0
+        routes[s].append([e, 1])
+    visited = ['ICN' ,*(0 for _ in range(len(tickets)))]
+    res = []
     def back(tmp):
-        nonlocal res
         if res:
             return
         if tmp == len(visited):
-            res = visited[:]
+            res.append(visited.copy())
             return
-            
-        for t_info in gh[visited[tmp-1]]:
-            dist, isAble = t_info
-            if not isAble:
-                continue
-            visited[tmp] = dist
-            t_info[1] = 0
-            back(tmp+1)
-            t_info[1] = 1
-    back(1)     
-    return [sop[i] for i in res]
+        for ticket_info in routes[visited[tmp-1]]:
+            e, not_used = ticket_info
+            if not_used:
+                visited[tmp] = e
+                ticket_info[1] = 0
+                back(tmp+1)
+                ticket_info[1] = 1
+    back(1)
+    return(res[0])
