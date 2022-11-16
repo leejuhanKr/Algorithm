@@ -1,10 +1,10 @@
 # [level 2] 메뉴 리뉴얼 - 72411 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/72411) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/72411?language=javascript) 
 
 ### 성능 요약
 
-메모리: 10.2 MB, 시간: 1.52 ms
+메모리: 40.6 MB, 시간: 27.04 ms
 
 ### 구분
 
