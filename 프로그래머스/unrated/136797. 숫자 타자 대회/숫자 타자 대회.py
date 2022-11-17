@@ -1,35 +1,26 @@
 def solution(numbers):
-    MAX = 1000000
-    defaultMAX = [MAX] * 10
-    dist = [[1, 7, 6, 7, 5, 4, 5, 3, 2, 3],
-            [7, 1, 2, 4, 2, 3, 5, 4, 5, 6],
-            [6, 2, 1, 2, 3, 2, 3, 5, 4, 5],
-            [7, 4, 2, 1, 5, 3, 2, 6, 5, 4],
-            [5, 2, 3, 5, 1, 2, 4, 2, 3, 5],
-            [4, 3, 2, 3, 2, 1, 2, 3, 2, 3],
-            [5, 5, 3, 2, 4, 2, 1, 5, 3, 2],
-            [3, 4, 5, 6, 2, 3, 5, 1, 2, 4],
-            [2, 5, 4, 5, 3, 2, 3, 2, 1, 2],
-            [3, 6, 5, 4, 5, 3, 2, 4, 2, 1]]
+    key = {0:(3,1), **{n:divmod(n-1,3) for n in range(1,10)}}
 
-    prev = dict(zip(range(10), defaultMAX))
-    prev[6] = 0
-    prevNum = 4
-
-    for number in numbers:
-        number = int(number)
-        if number == prevNum:
-            for i in range(10):
-                prev[i] += 1
-            continue
-        new = dict(zip(range(10), defaultMAX))
-        for i in range(10):
-            if i != prevNum:
-                new[i] = prev[i] + dist[number][prevNum]
-                new[prevNum] = min(new[prevNum], prev[i]+dist[number][i])
-        prev = new
-        prevNum = number
-
-    return min(prev.values())
+    ws = [[1]*10 for _ in range(10)]
+    for i in range(10):
+        x_i, y_i = key[i]
+        for j in range(i):
+            x_j, y_j = key[j]
+            dx , dy = map(abs, (x_i-x_j, y_i-y_j))
+            ws[j][i] = ws[i][j] = max(dx,dy)+sum((dx,dy))
+    dp = [(4,6,0)]
+    for n in numbers:
+        n = int(n)
+        d = {}
+        for l,r,w in dp:
+            for nl,nr,dw in [(n,r,ws[l][n]), (l,n,ws[r][n])]:
+                if nl==nr:
+                    continue
+                d[(nl,nr)] = min(d.get((nl,nr),10e9),w+dw)
+        dp = [(*k,v) for k,v in d.items()]
+    ans = 10e9
+    for _,_,w in dp:
+        ans = min(ans,w)
+    return ans
 
             
