@@ -1,10 +1,10 @@
 # [unrated] 숫자 타자 대회 - 136797 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/136797?language=python3) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/136797?language=javascript) 
 
 ### 성능 요약
 
-메모리: 10.4 MB, 시간: 629.62 ms
+메모리: 40.7 MB, 시간: 199.48 ms
 
 ### 구분
 
