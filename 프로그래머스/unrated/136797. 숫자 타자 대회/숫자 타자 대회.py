@@ -8,19 +8,19 @@ def solution(numbers):
             x_j, y_j = key[j]
             dx , dy = map(abs, (x_i-x_j, y_i-y_j))
             ws[j][i] = ws[i][j] = max(dx,dy)+sum((dx,dy))
-    dp = [(4,6,0)]
+    dp = [(6,0)]
+    p = 4
     for n in numbers:
         n = int(n)
         d = {}
-        for l,r,w in dp:
-            for nl,nr,dw in [(n,r,ws[l][n]), (l,n,ws[r][n])]:
-                if nl==nr:
-                    continue
-                d[(nl,nr)] = min(d.get((nl,nr),10e9),w+dw)
-        dp = [(*k,v) for k,v in d.items()]
-    ans = 10e9
-    for _,_,w in dp:
-        ans = min(ans,w)
-    return ans
+        for pp,w in dp:
+            if p != n:
+                d[p] = min(d.get(p,10e9),w+ws[pp][n])
+            if pp != n:
+                d[pp] = min(d.get(pp,10e9),w+ws[p][n])
+        p=n
+        dp = [(k,v) for k,v in d.items()]
+
+    return min((w for _,w in dp))
 
             
