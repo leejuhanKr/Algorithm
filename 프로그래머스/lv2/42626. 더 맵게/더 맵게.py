@@ -11,11 +11,7 @@ def solution(scoville, K):
             return ans
         
         if scoville:
-            second = hq.heappop(scoville)
-            
-            replaced = first + second*2
-            ans+=1
-            
-            hq.heappush(scoville, replaced)
+            ans+=1   
+            hq.heapreplace(scoville, first + scoville[0]*2)
             
     return -1
