@@ -4,7 +4,7 @@ function solution(p) {
   const [u, v] = seperate(p)
 
   return check(u)
-    ? `${u}${solution(v)}`
+    ? u + solution(v)
     : '(' + solution(v) + ')' + reverse(u.slice(1, -1))
 }
 
