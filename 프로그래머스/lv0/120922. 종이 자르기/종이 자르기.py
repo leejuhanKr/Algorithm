@@ -1,2 +1,1 @@
-def solution(m, n):
-    return m*n-1
+solution = lambda a,b: a*b-1
