@@ -30,6 +30,4 @@ def solution(gems):
             s+=1
         if required_gems == scope.len and e-s-1<res[1]-res[0]:
             res = [s+1,e]
-    return res
-
-    
+    return res        
