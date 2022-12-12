@@ -15,6 +15,7 @@ def solution(s):
             
             if cnt == 0:
                 base = None
+                
     return res
             
         
