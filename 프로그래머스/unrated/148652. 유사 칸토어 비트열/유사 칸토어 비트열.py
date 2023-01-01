@@ -7,7 +7,7 @@ def foo(n,l,r):
     ql, rl = divmod(l,5)
     qr, rr = divmod(r,5)
     
-    prev = foo(n-1, ql, qr + (1 if rr else 0))
+    prev = foo(n-1, ql, qr+1)
     res = ''
     for char in prev:
         if char == '1':
