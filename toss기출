@@ -1,0 +1,111 @@
+// 1
+function safelyGet(obj, qString) {
+  let propertys = qString.split(".");
+  return propertys.reduce((acc, cur) => acc?.[cur], obj);
+}
+
+//2
+function createQueryString(obj) {
+  res = "";
+  for (let [key, val] of Object.entries(obj)) {
+    if (val === null || val === undefined) continue;
+    if (Array.isArray(val)) {
+      for (const el of val) {
+        res = res + `&${key}=${encodeURIComponent(el)}`;
+      }
+      continue;
+    }
+    res = res + `&${key}=${encodeURIComponent(val)}`;
+  }
+  return res.replace("&", "?");
+}
+// 3
+function solution(paths) {
+  const splitedPaths = paths.reduce((acc, paths) => {
+    if (paths.startsWith("/")) {
+      paths = paths.slice(1);
+    }
+    for (let path of paths.split("/")) {
+      if (path === ".") {
+      } else if (path === "..") {
+        acc.pop();
+      } else if (path === "...") {
+        acc.pop();
+        acc.pop();
+      } else {
+        acc.push(path);
+      }
+    }
+    return acc;
+  }, []);
+  return "/" + splitedPaths.join("/");
+}
+
+let paths1 = ["/foo"];
+let paths2 = ["/foo", "bar", "baz/asdf", "quux", ".."];
+let paths3 = ["/foo", "bar", "baz/./asdf"];
+let paths4 = ["/foo", "bar", "baz", "...", "/asdf"];
+let paths5 = ["/foo", "bar", "...", ".", "ab"];
+ans = solution(paths5);
+ans;
+
+//4
+function fetchPaper() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // resolve("발급 완료");
+      reject("발급 실패");
+    }, 250);
+  });
+}
+
+function pushSolution(fetchPromise) {
+  const promiseFetch = fetchPromise();
+  const promiseTimeLimit = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(new Error());
+    }, 1000);
+  });
+  return Promise.race([promiseFetch, promiseTimeLimit]);
+}
+
+pushSolution(fetchPaper)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+//5
+function highlightSolution(str, strToMark) {
+  const re = new RegExp(`(${strToMark.split("").join(",?")})`, "g");
+  return str.replace(re, `<mark>$1</mark>`);
+}
+
+// ans = highlightSolution('커피 3,500원', '350')
+// ans = highlightSolution('샌드위치 2,350원', '350')
+
+//6
+function isiSimplepin(pinNumber) {
+  matchStr1 = "0123456789";
+  matchStr2 = "9876543210";
+  return matchStr1.match(pinNumber);
+}
+
+ans = isiSimplepin("1234");
+ans = /(\w)\1{2}/.test("0222");
+ans;
+function con(str) {
+  let o = (d = p = n = 0);
+  let limit = 3;
+  for (let i = 0; i < str.length; i++) {
+    let tmp = Number(str[i]);
+    if (i > 0 && (p = o - tmp) > -2 && (n = p == d ? n + 1 : 0) > limit-3 ) {
+      return true;
+    }
+    d = p;
+    o = tmp;
+  }
+  return false;
+}

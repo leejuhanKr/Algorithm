@@ -41,4 +41,4 @@ function solution(line) {
   })
 
   return points_map.map(arr => arr.join(''))
-}
+}[]
