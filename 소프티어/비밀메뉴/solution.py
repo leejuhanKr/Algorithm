@@ -16,11 +16,10 @@ def pairwise(iterable, _len):
 def solution():
     M, N, K, secret_key, order = preprocess_input()
     for key in pairwise(order, M):
-        print(key)
         if secret_key == key:
-            print("gg")
-            return True
-    return False
+            return "secret"
+    return "normal"
 
 
-solution()
+answer = solution()
+print(answer)
