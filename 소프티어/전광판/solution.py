@@ -1,7 +1,6 @@
 from sys import stdin
 from operator import xor
 
-a = 0b0000000
 digit_ = {
     "0": 0b1110111,
     "1": 0b0010010,
@@ -24,25 +23,20 @@ def preprocess_input():
 
 def xor_digit(a, b) -> int:
     diff = f"{xor(digit_[a], digit_[b]):b}"
-    print(f"{a=} {b=} {diff}")
-    print(bin(digit_[a]), bin(digit_[b]))
     return sum(int(i) for i in diff)
 
 
 def get_change_between(str_num_1, str_num2) -> int:
     max_len = max(len(v) for v in (str_num_1, str_num2))
     str_num_1, str_num2 = f"{str_num_1:_>{max_len}}", f"{str_num2:_>{max_len}}"
-    print(str_num_1, str_num2)
     return sum(xor_digit(a, b) for a, b in zip(str_num_1, str_num2))
 
 
 def solution():
     change = 0
     for prev, tmp in preprocess_input():
-        # print(prev, tmp)
         change = get_change_between(prev, tmp)
         print(change)
-        # break
 
 
 solution()
