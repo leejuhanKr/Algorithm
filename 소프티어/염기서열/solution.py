@@ -1,5 +1,5 @@
 from enum import Flag, auto
-from sys import stdin
+from sys import stdin, maxsize
 
 
 class DNA(Flag):
@@ -47,6 +47,10 @@ class SuperNuclic(Nucleic):
             self.seq[i] &= val
             if not self.seq[i].value:
                 raise ValueError
+        return self
+
+    def clone(self):
+        return SuperNuclic(*self)
 
 
 def preprocess_input():
@@ -61,17 +65,26 @@ def preprocess_input():
 
 def solution():
     nucleics = preprocess_input()
+    res = maxsize
     supers = []
-    for nucleic in nucleics:
-        for super in supers:
-            if super.is_cover(nucleic):
-                super.fit_with(nucleic)
-                break
-        else:
-            new = SuperNuclic(*nucleic)
-            supers.append(new)
 
-    return len(supers)
+    def back(i, supers):
+        nonlocal res
+        if i >= len(nucleics):
+            res = min(res, len(supers))
+            return
+        nucleic = nucleics[i]
+        for j, super in enumerate(supers):
+            if super.is_cover(nucleic):
+                updated = supers.copy()
+                updated[j] = updated[j].clone().fit_with(nucleic)
+                back(i + 1, updated)
+        updated = supers.copy()
+        updated.append(SuperNuclic(*nucleic))
+        back(i + 1, updated)
+
+    back(0, supers)
+    return res
 
 
 answer = solution()
