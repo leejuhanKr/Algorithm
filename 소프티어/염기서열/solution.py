@@ -73,6 +73,8 @@ def solution():
         if i >= len(nucleics):
             res = min(res, len(supers))
             return
+        if len(supers) >= res:
+            return
         nucleic = nucleics[i]
         for j, super in enumerate(supers):
             if super.is_cover(nucleic):
