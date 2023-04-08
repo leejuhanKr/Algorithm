@@ -6,3 +6,7 @@ function *zip (...iterables){
       else yield results.map(res => res.value )
   }
 }
+
+function sum(iterable, start=0) {
+  return iterable.reduce((acc, cur) => acc+cur, start)
+}
