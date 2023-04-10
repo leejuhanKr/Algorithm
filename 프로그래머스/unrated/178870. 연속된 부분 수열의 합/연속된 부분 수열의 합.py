@@ -1,23 +1,15 @@
 from sys import maxsize
 
-def solution(sequence, k):
-    s, e = 0, -1
-    _len = maxsize
-    sum = 0
-    res = [s, e]
-    for idx, num in enumerate(sequence):
-        e=idx
-        sum += num
-        while sum > k:
-            sum -= sequence[s]
-            s+=1
-        if sum == k:
-            if _len > e - s:
-                _len = e-s
-                res = (s,e)
-            sum -= sequence[s]
-            s+=1
-    return res
-            
-            
+def solution(seq, k):
+    head = enumerate(seq,1)
+    _sum = 0
+    si, se, rsi, rei = 0, 0, 0, maxsize
+    for ei, ev in enumerate(seq):
+        _sum += ev
+        while _sum > k:
+            si, sv = next(head)
+            _sum -= sv
+        if _sum == k and ei-si < rei-rsi:
+            rsi, rei = si, ei
+    return [rsi, rei]
 
