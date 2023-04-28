@@ -1,0 +1,1 @@
+solution = (num, n) => +!(num%n)
