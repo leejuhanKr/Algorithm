@@ -1,6 +1,6 @@
 # [unrated] 정사각형으로 만들기 - 181830 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181830?language=javascript) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181830) 
 
 ### 성능 요약
 
