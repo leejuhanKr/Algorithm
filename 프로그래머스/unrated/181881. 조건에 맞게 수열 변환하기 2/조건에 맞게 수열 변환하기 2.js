@@ -11,7 +11,6 @@ function solution(arr) {
         })
         if (flag) break;
         i++
-        flag=true
     }
     return i
 }
