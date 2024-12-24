@@ -1,10 +1,10 @@
 # [level 2] 가장 큰 정사각형 찾기 - 12905 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12905?language=python3) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12905?language=javascript) 
 
 ### 성능 요약
 
-메모리: 30.5 MB, 시간: 505.66 ms
+메모리: 92.2 MB, 시간: 84.49 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 12월 24일 21:44:48
+2024년 12월 24일 22:09:45
 
 ### 문제 설명
 
