@@ -1,5 +1,5 @@
 def solution(board):
-    res = min(*(row[0] for row in board),*board[0])
+    res = any(any(val for val in row) for row in board)
     for i in range(1,len(board)):
         for j in range(1,len(board[0])):
             if v:= board[i][j]:
