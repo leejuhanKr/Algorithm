@@ -7,27 +7,18 @@ const create_video = () => ({
 
 const parseTime = (str) => {
     const timeRegex = /^(?<mins>[0-5][0-9]):(?<secs>[0-5][0-9])/;
-
     const { groups: { mins, secs } = {} } = str.match(timeRegex) || {};
-    const res = (+mins) * 60 + (+secs);
-    return res
+    return (+mins) * 60 + (+secs);
 }
 
 const stringifyTime = (secs) => {
-    const min = Math.floor(secs/60)
-    const sec = secs%60
-    const minStr = min < 10 ? `0${min}`: `${min}`
-    const secStr = sec < 10 ? `0${sec}`: `${sec}`
+    const min = Math.floor(secs/60), sec = secs%60
+    const [minStr, secStr] = [min, sec].map(v => v < 10 ? `0${v}` : `${v}`)
     return `${minStr}:${secStr}`
 }
 
-const move_pos = (video, time) => {
-    video.pos += time
-}
-
-const set_pos = (video, time) => {
-    video.pos = time
-}
+const move_pos = (video, time) => video.pos += time;
+const set_pos = (video, time) => video.pos = time;
 
 const command_skip_openning = (video) => {
     if (video.pos >= video.op_start && video.pos < video.op_end) {
