@@ -17,47 +17,23 @@ const stringifyTime = (secs) => {
     return `${minStr}:${secStr}`
 }
 
-const move_pos = (video, time) => video.pos += time;
-const set_pos = (video, time) => video.pos = time;
+const movePos = (video, time) => {
+    const newPos = video.pos + time;
+    video.pos = newPos < 0 ? 0 : newPos > video.video_len ? video.video_len : newPos;
+}
 
 const command_skip_openning = (video) => {
-    if (video.pos >= video.op_start && video.pos < video.op_end) {
-        video.pos = video.op_end;
-        command_skip_openning(video);
-    }
+    if (video.pos < video.op_start || video.pos >= video.op_end) return;
+    video.pos = video.op_end;
 }
 
-const command_prev = (video) => {
-    const amount = -10;
-    const thresholdTime = 10;
-    if (video.pos < thresholdTime) {
-        set_pos(video, 0)
-    }
-    else {
-        move_pos(video, amount);
-    }
-    command_skip_openning(video);
+const commandTable = {
+    "prev": (video) => movePos(video, -10),
+    "next": (video) => movePos(video, 10),
 }
-
-const command_next = (video) => {
-    const amount = 10;
-    const thresholdTime = video.video_len-10;
-    if (video.pos > thresholdTime) {
-        set_pos(video, video.video_len) 
-    } else {
-        move_pos(video, amount);
-    }
-    command_skip_openning(video);
-}
-
-
 const invokeCommand = (commandString, video) => {
-    const table = {
-        "prev": command_prev,
-        "next": command_next,
-    }
-    const command =table[commandString];
-    command(video);
+    commandTable[commandString](video);
+    command_skip_openning(video);
 }
 
 function solution(video_len, pos, op_start, op_end, commands) {
