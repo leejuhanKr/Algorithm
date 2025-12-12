@@ -1,24 +1,28 @@
 from collections import deque
 
 def solution(players, m, k):
-    res = 0
-    q = deque()  # (만료 시간, 서버 수)
-    cur_servers = 0  # 현재 운영 중인 증설 서버 수
+    res = 0;
+    cur_servers = 0; # 증설 서버 개수
     
-    for t in range(24):
-        # 1. 만료된 서버 반납
+    q = deque() # (t: 종료 시간, n: 서버 개수)
+    
+    for t in range(0, 24):
+        # 서버 종료
         while q and q[0][0] <= t:
-            _, expired = q.popleft()
-            cur_servers -= expired
+            _, _n = q.popleft()
+            cur_servers -= _n
+
+        # 필요 증설 서버 개수
+        needed = players[t] // m 
         
-        # 2. 필요한 서버 수 계산
-        needed = players[t] // m  # n x m 이상이면 n대 필요
         
-        # 3. 증설 필요 여부 확인
+        # 서버 증설
         if needed > cur_servers:
-            add = needed - cur_servers
-            cur_servers += add
-            q.append((t + k, add))  # k시간 후 만료
-            res += add
-    
+            need_to_add = needed - cur_servers
+            cur_servers += need_to_add
+            q.append((t+k, need_to_add))
+            res += need_to_add
+            
     return res
+    
+    
